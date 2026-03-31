@@ -1,2 +1,0 @@
-{"event": "session_start", "session_id": "b46ac1d8-d91c-4ace-8477-cb05eeafd443", "timestamp": "2026-03-30T16:45:20.605498", "clinic": "Trung t\u00e2m Y t\u1ebf Na-Health", "voice_model": "Puck"}
-{"event": "report_step", "timestamp": "2026-03-30T16:45:27.181670", "data": {"step_index": 1, "step_name": "Thông tin cá nhân"}}
