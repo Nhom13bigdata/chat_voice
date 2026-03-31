@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Intake | Voice Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <span>MedAI</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-view="chat">
+                    <span class="icon">💬</span> Chat
+                </li>
+                <li data-view="emr">
+                    <span class="icon">📂</span> EMR <span class="badge">Soon</span>
+                </li>
+                <li data-view="insurance">
+                    <span class="icon">🛡️</span> Insurance <span class="badge">Soon</span>
+                </li>
+                <li data-view="notifications">
+                    <span class="icon">🔔</span> Alerts <span class="badge">Soon</span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <div class="dot" id="connection-dot"></div>
+                    <span id="connection-text">Disconnected</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <h1>Medical Intake Assistant</h1>
+                <div class="header-actions">
+                    <button id="toggle-data" class="btn-secondary">📋 View Data</button>
+                    <button id="start-btn" class="btn-primary">Start Session</button>
+                    <button id="stop-btn" class="btn-danger hidden">Stop Session</button>
+                </div>
+            </header>
+
+            <!-- Interaction View (Chat) -->
+            <section id="chat-view" class="view active">
+                <div class="interaction-hero">
+                    <div class="visualizer-container">
+                        <div class="pulse-ring ring-1"></div>
+                        <div class="pulse-ring ring-2"></div>
+                        <div class="pulse-ring ring-3"></div>
+                        <div class="main-orb" id="orb">
+                            <div class="inner-glow"></div>
+                        </div>
+                    </div>
+                    <div class="status-msg" id="status-msg">Press Start to begin your intake</div>
+                </div>
+
+                <div class="transcript-container" id="transcript">
+                    <!-- Transcripts will appear here -->
+                    <div class="transcript-entry system">
+                        Assistant is ready to help you...
+                    </div>
+                </div>
+
+                <!-- Debug Chat Input -->
+                <div class="debug-input-container">
+                    <input type="text" id="debug-input" placeholder="Type a message to test (Debug Mode)...">
+                    <button id="send-debug-btn">Send</button>
+                </div>
+            </section>
+
+            <!-- EMR View (Placeholder) -->
+            <section id="emr-view" class="view">
+                <div class="placeholder-content">
+                    <h2>Electronic Medical Records</h2>
+                    <p>Integrate with your existing EMR/EHR systems. This feature is currently in development.</p>
+                    <div class="mock-table">
+                        <div class="row header"><span>Patient ID</span><span>Last Visit</span><span>Type</span></div>
+                        <div class="row"><span>PAT-9821</span><span>2024-03-20</span><span>Routine Check</span></div>
+                        <div class="row"><span>PAT-7742</span><span>2024-02-15</span><span>Specialist</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insurance View (Placeholder) -->
+            <section id="insurance-view" class="view">
+                <div class="placeholder-content">
+                    <h2>Insurance Verification</h2>
+                    <p>Real-time eligibility checking for major insurance providers.</p>
+                    <div class="mock-card">
+                        <div class="card-header">Verification Protocol</div>
+                        <div class="card-body">
+                            <label>Carrier</label>
+                            <input type="text" placeholder="e.g. Blue Cross" disabled>
+                            <label>Member ID</label>
+                            <input type="text" placeholder="1234-5678" disabled>
+                            <button class="btn-primary" disabled>Verify Eligibility</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notifications View (Placeholder) -->
+            <section id="notifications-view" class="view">
+                <div class="placeholder-content">
+                    <h2>Notifications Hub</h2>
+                    <p>Configure how patients receive follow-ups and summaries.</p>
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <span>SMS Follow-up</span>
+                            <div class="toggle disabled"></div>
+                        </div>
+                        <div class="toggle-item">
+                            <span>Email Results</span>
+                            <div class="toggle disabled"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Right Panel (Extracted Data) -->
+        <aside class="data-panel" id="data-panel">
+            <div class="panel-header">
+                <h3>Extracted Data</h3>
+                <button id="close-data">×</button>
+            </div>
+            <div class="panel-content" id="data-content">
+                <div class="empty-state">No data extracted yet. Please start the conversation.</div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn-primary full-width" id="save-emr" disabled>Commit to EMR</button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- API Key Modal (Custom Input) -->
+    <div id="setup-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Session Setup</h2>
+            <p>Please enter your Gemini API Key (Optional if set on backend)</p>
+            <input type="password" id="api-key-input" placeholder="Enter API Key">
+            <div class="modal-buttons">
+                <button id="close-modal" class="btn-secondary">Skip</button>
+                <button id="save-api-key" class="btn-primary">Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

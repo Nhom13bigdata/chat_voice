@@ -1,0 +1,2 @@
+{"event": "session_start", "session_id": "8aabd8de-ddcc-42db-a397-009e453cc9b9", "timestamp": "2026-03-30T16:43:07.447239", "clinic": "Trung t\u00e2m Y t\u1ebf Na-Health", "voice_model": "Puck"}
+{"event": "report_step", "timestamp": "2026-03-30T16:43:13.071657", "data": {"step_index": 1, "step_name": "THÔNG TIN CÁ NHÂN"}}
